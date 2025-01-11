@@ -1,0 +1,58 @@
+[gd_scene load_steps=2 format=3 uid="uid://ds2in23m7tsf6"]
+
+[ext_resource type="Script" path="res://Scripts/MainMenu.gd" id="1_10wcb"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 10
+script = ExtResource("1_10wcb")
+
+[node name="Buttons" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 517.0
+offset_top = 358.0
+offset_right = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="play" type="Button" parent="Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 35
+text = "play"
+
+[node name="settings" type="Button" parent="Buttons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "settings"
+
+[node name="quit" type="Button" parent="Buttons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "quit"
+
+[node name="Buttons2" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Buttons2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 75
+text = "Champion Archer"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="Buttons/play" to="." method="_play"]
+[connection signal="pressed" from="Buttons/quit" to="." method="_quit"]

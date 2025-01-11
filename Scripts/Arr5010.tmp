@@ -1,0 +1,42 @@
+using Godot;
+using System;
+
+public partial class Arrow : Area2D
+{
+	private Vector2 velocity = new Vector2(400, 0);
+	private Vector2 motion = Vector2.Zero;
+	private float gravity = 500;
+
+	public override void _Ready()
+	{
+	}
+
+	public override void _Process(double delta)
+	{
+		float deltaFloat = (float)delta;
+		motion.Y += gravity * delta; // Use multiplication instead of addition
+
+		motion.X = velocity.X * delta;
+		$CollisionShape2D collision = MoveAndCollide(motion); // Correct method name and store the result
+
+		if (collision != null)
+		{
+			QueueFree();
+		}
+	}
+
+	public void _OnBodyEntered(Node body)
+	{
+		if (body is Target)
+		{
+			GD.Print("Arrow hit target");
+			body.QueueFree();
+			QueueFree();
+		}
+		else
+		{
+			GD.Print("Arrow hit not target");
+			QueueFree();
+		}
+	}
+}
