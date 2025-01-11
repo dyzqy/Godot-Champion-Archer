@@ -1183,8 +1183,8 @@ a = Vector2(0, -22)
 b = Vector2(38, -22)
 
 [node name="Swordman" type="CharacterBody2D"]
-collision_layer = 2
-collision_mask = 4
+collision_layer = 6
+collision_mask = 2
 script = ExtResource("1_dhkdx")
 
 [node name="Body" type="AnimatedSprite2D" parent="."]
@@ -1199,8 +1199,8 @@ position = Vector2(0, 22)
 shape = SubResource("CapsuleShape2D_hreha")
 
 [node name="Area2D" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 4
+collision_layer = 4
+collision_mask = 5
 
 [node name="BodyCollision2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, 22)

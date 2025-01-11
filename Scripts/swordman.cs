@@ -77,19 +77,13 @@ public partial class swordman : CharacterBody2D
 	// Signal handlers for collision detection
 	private void OnBodyEntered(Node body)
 	{
-		// Check if the colliding body is a valid target
-		if (body.IsInGroup("targets"))
-		{
-			isAttacking = true;
-		}
+		GD.Print("Entered attack area");
+		isAttacking = true;
 	}
 
 	private void OnBodyExited(Node body)
 	{
-		// Reset isAttacking when the target exits the area
-		if (body.IsInGroup("targets"))
-		{
-			isAttacking = false;
-		}
+		GD.Print("Left attack area");
+		isAttacking = false;
 	}
 }
