@@ -1180,7 +1180,7 @@ height = 78.0
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_r4lhf"]
 a = Vector2(0, -22)
-b = Vector2(38, -22)
+b = Vector2(74, -22)
 
 [node name="EnemySwordman" type="CharacterBody2D"]
 scale = Vector2(-1, 1)

@@ -14,18 +14,8 @@
 [node name="Archer" parent="." instance=ExtResource("2_hymnu")]
 position = Vector2(-395, 112)
 
-[node name="Swordman" parent="." instance=ExtResource("3_4vvpq")]
-position = Vector2(-341, 150)
-metadata/health = 5
-
-[node name="Swordman2" parent="." instance=ExtResource("3_4vvpq")]
-position = Vector2(-469, 44)
-
-[node name="Swordman3" parent="." instance=ExtResource("3_4vvpq")]
-position = Vector2(-439, 225)
-
-[node name="Swordman4" parent="." instance=ExtResource("3_4vvpq")]
-position = Vector2(-348, 39)
-
 [node name="EnemySwordman" parent="." instance=ExtResource("4_fb7im")]
-position = Vector2(251, 72)
+position = Vector2(162, 74)
+
+[node name="Swordman" parent="." instance=ExtResource("3_4vvpq")]
+position = Vector2(-206, 80)
