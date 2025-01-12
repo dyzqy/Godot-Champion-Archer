@@ -1193,7 +1193,7 @@ scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_vs3vy")
 animation = &"death_3"
 autoplay = "idle"
-frame_progress = 0.586231
+frame_progress = 0.085499
 
 [node name="BodyCollision2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 22)

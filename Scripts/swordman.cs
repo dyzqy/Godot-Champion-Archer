@@ -23,8 +23,7 @@ public partial class swordman : CharacterBody2D
 
     [Export] public bool isEnemy { get; set; } = false;
     [Export] private int type { get; set; } = 2;
-
-    public int health;
+    [Export] public int health { get; set; } = 5;
 
     public override void _Ready()
     {
@@ -52,13 +51,9 @@ public partial class swordman : CharacterBody2D
     {
         Vector2 velocity = Velocity;
         Vector2 direction = new Vector2(!isEnemy ? 1 : -1, 0);
-        if (direction != Vector2.Zero && !isAttacking)
+        if (direction != Vector2.Zero && !isAttacking && !isDead)
         {
             velocity.X = direction.X * Speed;
-        }
-        else if (!isAttacking)
-        {
-            velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
         }
         else
         {
@@ -73,9 +68,9 @@ public partial class swordman : CharacterBody2D
 	{
 		if (isDead)
 		{
-			if(body.Animation == "death_1" && body.Frame >= 28) body.Frame = 29;
-			else if(body.Animation == "death_2" && body.Frame >= 18) body.Frame = 19;
-			else if(body.Animation == "death_3" && body.Frame >= 21) body.Frame = 2;
+			if(body.Animation == "death_1" && body.Frame >= 28) { body.Frame = 29; }
+			else if(body.Animation == "death_2" && body.Frame >= 18) { body.Frame = 19; }
+			else if(body.Animation == "death_3" && body.Frame >= 21) { body.Frame = 22; }
 			return;
 		} 
 		
@@ -98,13 +93,14 @@ public partial class swordman : CharacterBody2D
 
     public void damage()
     {
-		if(!isDead) kill();
+		if(!isDead) health--;
 		else GD.Print("Already dead.");
+
+		if(health <= 0) kill();
     }
 
     private void kill()
     {
-        GD.Print("Dead.");
 		body.Play($"death_{GD.Randi() % 2 + 1}");
 
         // Disconnect signals before freeing the trigger
@@ -119,7 +115,9 @@ public partial class swordman : CharacterBody2D
             trigger.QueueFree();
         }
 
-        // Mark the character as dead
+		GetNode<CollisionShape2D>("BodyCollision2D").QueueFree();
+
+        // Mark the sword as dead
         isDead = true;
     }
 

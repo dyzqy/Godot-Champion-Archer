@@ -1,6 +1,8 @@
 using Godot;
 using System;
 
+// the acton empire :kekw:
+// https://cdn.discordapp.com/attachments/931644550462722189/1008050885093494946/wheeze07.mp4?ex=678497cb&is=6783464b&hm=488c33853438b9aceaef7d47301309009f9e531a244352cfdb7e3a3608e349c9&
 public partial class archer : CharacterBody2D
 {
 	AnimatedSprite2D bow;
