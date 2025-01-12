@@ -8,7 +8,7 @@ public partial class archer : CharacterBody2D
 	AnimatedSprite2D bow;
 	AnimatedSprite2D body;
 	
-	public const float Speed = 200.0f;
+	public const float Speed = 275.0f;
 
 	public override void _Ready()
 	{
@@ -18,10 +18,6 @@ public partial class archer : CharacterBody2D
 	
 	public override void _Process(double delta)
 	{
-		if(Input.IsActionPressed("ui_accept"))
-		{
-			shoot();
-		}
 	}
 	
 	public override void _PhysicsProcess(double delta)
@@ -43,14 +39,5 @@ public partial class archer : CharacterBody2D
 
 		Velocity = velocity;
 		MoveAndSlide();
-	}
-	
-	public void shoot()
-	{
-		var arrow = ResourceLoader.Load<PackedScene>("res://Scenes/arrow.tscn").Instantiate() as Node2D;
-		
-		GetParent().AddChild(arrow);
-		arrow.GlobalPosition = bow.GlobalPosition;
-		arrow.RotationDegrees = bow.RotationDegrees;
 	}
 }

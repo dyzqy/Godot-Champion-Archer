@@ -1191,9 +1191,9 @@ script = ExtResource("1_dhkdx")
 texture_filter = 1
 scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_vs3vy")
-animation = &"death_3"
+animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.085499
+frame_progress = 0.440523
 
 [node name="BodyCollision2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 22)

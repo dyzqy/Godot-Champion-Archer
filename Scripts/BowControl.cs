@@ -4,128 +4,127 @@ using static Godot.Mathf;
 
 public partial class BowControl : AnimatedSprite2D
 {
-	AnimatedSprite2D bow;
+    AnimatedSprite2D bow;
 
-	bool isCharged = true;
-	bool isAiming = false;
-	float power; // from 1 to 8, based on "attack" anim, 9th frame is releasing arrow.
-	float side = 1;
+    bool isCharged = true;
+    bool isAiming = false;
+    float power; // Ranges from 1 to 8, determined by the "attack" animation; the 9th frame releases the arrow.
+    float side = 1;
 
-	private double deltaTime;
+    private double deltaTime;
+	private float chargedTimer;
 
-	Vector2 pressPosition;
-	Vector2 releasePosition;
-	Vector2 originalDirection;
+    Vector2 pressPosition;
+    Vector2 originalDirection;
 
-	public override void _Ready()
-	{
-		bow = this;
-		power = 0;
-	}
+    public override void _Ready()
+    {
+        bow = this;
+		bow.AnimationLooped += OnAnimationFinished;
+        power = 0;
+    }
 
-	public override void _Process(double delta)
-	{
-		deltaTime = delta;
-		animate();
-		move();
-		if (isAiming)
+    public override void _Process(double delta)
+    {
+        deltaTime = delta;
+        UpdateAnimation();
+        UpdateRotation();
+        if (isAiming)
+        {
+            UpdatePower();
+        }
+
+		if (Input.IsActionJustPressed("left_mouse") && isCharged) // Left mouse button by default
 		{
-			CalculatePower();
+			isAiming = true;
+            pressPosition = GetGlobalMousePosition();
+			GD.Print("clicked left mouse");
 		}
-	}
-
-	public void move()
-	{
-		Vector2 mousePosition = GetGlobalMousePosition();
-		Vector2 direction = mousePosition - GlobalPosition;
-		float rotation = Mathf.Atan2(direction.Y, direction.X);
-
-		if (isCharged && !isAiming)
+		if (Input.IsActionJustReleased("left_mouse")) // Left mouse button by default
 		{
-			if ((rotation * side) < 1.5 && (rotation * side) > -1.5)
+			AfterShot();
+			GD.Print("released left mouse");
+		}
+    }
+
+    public void UpdateRotation()
+    {
+        Vector2 mousePosition = GetGlobalMousePosition();
+        Vector2 direction = mousePosition - GlobalPosition;
+        float rotation = Atan2(direction.Y, direction.X);
+
+        if (isCharged)
+        {
+			if(chargedTimer > 0)
 			{
-				bow.Rotation = rotation;
+				bow.Rotation = Lerp(bow.Rotation, rotation, (float)deltaTime * 5 / (1 * chargedTimer));
+				chargedTimer -= 0.1f;
+				return;
 			}
-		}
-		else if (isCharged && isAiming)
-		{
-			if ((rotation * side) < 1.5 && (rotation * side) > -1.5)
-			{
-				Vector2 newDirection = direction.Normalized();
-				float dot = originalDirection.Dot(newDirection);
-				float maxRotation = 0.5f;
-				float newRotation = Lerp(bow.Rotation, rotation, dot * maxRotation);
-				bow.Rotation = newRotation;
-			}
-		}
-		else if (!isCharged)
-		{
-			bow.Rotation = 0;
-		}
-	}
+			bow.Rotation = rotation;
+        }
+        else
+        {
+            bow.Rotation = Lerp(bow.Rotation, 0, (float)deltaTime * 2);
+        }
+    }
 
-	public void animate()
+    public void UpdateAnimation()
+    {
+        if (!isCharged)
+        {
+            bow.Play("charge");
+            //isCharged = true;
+        }
+        else if (isAiming && isCharged)
+        {
+            float currentFrame = Lerp(bow.Frame, power, 0.5f * (float)deltaTime);
+            bow.Play("attack");
+            bow.Frame = (int)power;
+        }
+        else
+        {
+            bow.Play("idle");
+        }
+    }
+
+    private void UpdatePower()
+    {
+        float distance = pressPosition.DistanceTo(GetGlobalMousePosition());
+		//GD.Print($"distance {distance}");
+        float maxDistance = 350;
+        power = Min(8, 1 + 7 * (distance / maxDistance));
+    }
+
+    private void AfterShot()
+    {
+        isCharged = false;
+        isAiming = false;
+		shoot();
+        GD.Print("Power: " + power);
+    }
+
+    public void shoot()
 	{
-		if (!isCharged)
-		{
-			bow.Play("charge");
-			isCharged = true;
-		}
-		else if (isAiming && isCharged)
-		{
-			float currentFrame = Lerp(bow.Frame, power, 0.5f * (float)deltaTime);
-			bow.Play("attack");
-			bow.Frame = (int)currentFrame;
-		}
-		else if (!isAiming && isCharged)
-		{
-			bow.Play("idle");
-		}
-		else
-		{
-			bow.Play("idle");
-		}
+		var arrow = ResourceLoader.Load<PackedScene>("res://Scenes/arrow.tscn").Instantiate() as Node2D;
+		
+		GetParent().GetParent().AddChild(arrow);
+		arrow.GlobalPosition = bow.GlobalPosition;
+		arrow.RotationDegrees = bow.RotationDegrees;
 	}
 
-	private void CalculatePower()
-	{
-		float distance = pressPosition.DistanceTo(releasePosition);
-		float maxDistance = 750;
-		float minDistance = 0;
+    private void OnAnimationFinished()
+    {
+        if (bow.Animation == "charge")
+        {
+			chargedTimer = 2.5f;
+            isCharged = true;
+        }
+        GD.Print("Animation finished");
+    }
 
-		power = 1 + 7 * (distance - minDistance) / (maxDistance - minDistance);
-	}
-
-	private void AfterShooting()
-	{
-		isCharged = false;
-		isAiming = false;
-		GD.Print("Power: " + power);
-	}
-
-	public override void _Input(InputEvent @event)
-	{
-		if (@event is InputEventMouseButton mouseEvent)
-		{
-			if (mouseEvent.Pressed)
-			{
-				isAiming = true;
-				pressPosition = GetGlobalMousePosition();
-			}
-			else if (!mouseEvent.Pressed)
-			{
-				releasePosition = GetGlobalMousePosition();
-				AfterShooting();
-			}
-		}
-	}
-
-	private void BowAnimFinished()
-	{
-		if (bow.Animation == "charge")
-		{
-			isCharged = true;
-		}
-		GD.Print("finished");
-	}
+    private bool IsWithinRotationLimit(float rotation)
+    {
+        return (rotation * side) < 1.5 && (rotation * side) > -1.5;
+    }
 }

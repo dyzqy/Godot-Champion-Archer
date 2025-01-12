@@ -2,6 +2,7 @@
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_13s2e"]
 normal = Vector2(0, 1)
+distance = 364.0
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ffsje"]
 distance = -325.0
@@ -17,12 +18,16 @@ distance = -575.0
 [node name="Root" type="Node"]
 
 [node name="Upper Border" type="StaticBody2D" parent="."]
+collision_layer = 7
+collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Upper Border"]
 position = Vector2(0, -325)
 shape = SubResource("WorldBoundaryShape2D_13s2e")
 
 [node name="Bottom Border" type="StaticBody2D" parent="."]
+collision_layer = 7
+collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bottom Border"]
 shape = SubResource("WorldBoundaryShape2D_ffsje")
