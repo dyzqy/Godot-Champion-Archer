@@ -3,37 +3,27 @@ using System;
 
 public partial class arrow : CharacterBody2D
 {
-	/*public const float Speed = 300.0f;
-	public const float JumpVelocity = -400.0f;
+    public float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
+    private float shootPower = 1.0f; // Power value between 1 and 8
+    private bool isShot = false; // Track whether the arrow has been shot
 
-	// Get the gravity from the project settings to be synced with RigidBody nodes.
-	public float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
+    public override void _PhysicsProcess(double delta)
+    {
+        Vector2 velocity = Velocity;
 
-	public override void _PhysicsProcess(double delta)
-	{
-		Vector2 velocity = Velocity;
+        // Apply gravity if the arrow has been shot
 
-		// Add the gravity.
-		if (!IsOnFloor())
-			velocity.Y += gravity * (float)delta;
+    	velocity.Y += gravity * (float)delta;
 
-		// Handle Jump.
-		if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
-			velocity.Y = JumpVelocity;
+		shootPower = 8.0f;
 
-		// Get the input direction and handle the movement/deceleration.
-		// As good practice, you should replace UI actions with custom gameplay actions.
-		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
-		if (direction != Vector2.Zero)
-		{
-			velocity.X = direction.X * Speed;
-		}
-		else
-		{
-			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
-		}
+		float angle = Rotation; // Get the arrow's current rotation in radians
+		velocity = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * shootPower * 200;
 
-		Velocity = velocity;
-		MoveAndSlide();
-	}*/
+		isShot = true; // Mark the arrow as shot
+        
+
+        Velocity = velocity;
+        MoveAndSlide();
+    }
 }

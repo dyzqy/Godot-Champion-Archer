@@ -117,7 +117,7 @@ public partial class BowControl : AnimatedSprite2D
     {
         if (bow.Animation == "charge")
         {
-			chargedTimer = 2.5f;
+			chargedTimer = 1.5f;
             isCharged = true;
         }
         GD.Print("Animation finished");
