@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://cnm7vppeicheb"]
+[gd_scene load_steps=3 format=3 uid="uid://cnm7vppeicheb"]
 
 [ext_resource type="PackedScene" uid="uid://cmrt4ablxvtf2" path="res://Scenes/Map.tscn" id="1_1tesv"]
 [ext_resource type="PackedScene" uid="uid://cn1w54htlckdp" path="res://Scenes/archer.tscn" id="2_hymnu"]
-[ext_resource type="PackedScene" uid="uid://dbvgmgxt4d442" path="res://Scenes/enemy_swordman.tscn" id="3_r46fg"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -13,6 +12,3 @@
 [node name="Archer" parent="." instance=ExtResource("2_hymnu")]
 z_index = 1
 position = Vector2(-395, 112)
-
-[node name="EnemySwordman" parent="." instance=ExtResource("3_r46fg")]
-position = Vector2(173, 93)

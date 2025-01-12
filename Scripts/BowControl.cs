@@ -106,11 +106,12 @@ public partial class BowControl : AnimatedSprite2D
 
     public void shoot()
 	{
-		var arrow = ResourceLoader.Load<PackedScene>("res://Scenes/arrow.tscn").Instantiate() as Node2D;
+		var arrow = ResourceLoader.Load<PackedScene>("res://Scenes/arrow.tscn").Instantiate() as arrow;
 		
 		GetParent().GetParent().AddChild(arrow);
 		arrow.GlobalPosition = bow.GlobalPosition;
 		arrow.RotationDegrees = bow.RotationDegrees;
+		arrow.Shoot(power);
 	}
 
     private void OnAnimationFinished()

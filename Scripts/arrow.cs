@@ -1,29 +1,36 @@
+using static Godot.Mathf;
 using Godot;
 using System;
 
 public partial class arrow : CharacterBody2D
 {
     public float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
-    private float shootPower = 1.0f; // Power value between 1 and 8
-    private bool isShot = false; // Track whether the arrow has been shot
+    private float shootPower = 8.0f; // Fixed power value from 1 to 8
+    private Vector2 velocity;
 
     public override void _PhysicsProcess(double delta)
     {
-        Vector2 velocity = Velocity;
+        // Gradually reduce velocity over time
+        velocity = velocity.Lerp(Vector2.Zero, 0.76f * (float)delta); // Damping factor
 
-        // Apply gravity if the arrow has been shot
+        // Apply gravity to make the arrow eventually fall
+        velocity.Y += gravity * (float)delta;
 
-    	velocity.Y += gravity * (float)delta;
+        // Update the arrow's rotation to match its velocity direction
+        if (velocity.Length() > 0.01f) // Avoid setting rotation for very small velocities
+        {
+            Rotation = velocity.Angle();
+        }
 
-		shootPower = 8.0f;
-
-		float angle = Rotation; // Get the arrow's current rotation in radians
-		velocity = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * shootPower * 200;
-
-		isShot = true; // Mark the arrow as shot
-        
-
+        // Update velocity and move the arrow
         Velocity = velocity;
         MoveAndSlide();
+    }
+
+    public void Shoot(float power)
+    {
+        shootPower = power;
+        float angle = Rotation; // Arrow's rotation in radians
+        velocity = new Vector2(Cos(angle), Sin(angle)) * shootPower * 250;
     }
 }
