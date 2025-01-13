@@ -46,8 +46,9 @@ public partial class arrow : CharacterBody2D
 	{
 		if(body is swordman Sword)
 		{
-			if(Sword.isEnemy) Sword.damage(false);
-			GD.Print("hit body with arrow (real)");
+			if(body.Name == "HeadCollision") Sword.headshot();
+			else Sword.damage(false);
+			GD.Print($"Hit {body.Name} with Arrow");
 		}
 	}
 }
