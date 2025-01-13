@@ -184,13 +184,4 @@ public partial class swordman : CharacterBody2D
         isAttacking = false;
         //GD.Print("Target lost.");
     }
-
-    private void OnHeadEntered(Node node)
-    {
-        if (node is arrow Arrow) // Check if the entering node is of the correct type
-        {
-            Arrow.Hit();
-            kill();
-        }
-    }
 }

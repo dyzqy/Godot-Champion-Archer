@@ -8,8 +8,13 @@ public partial class arrow : CharacterBody2D
 	private float shootPower = 8.0f; // Fixed power value from 1 to 8
 	private Vector2 velocity;
 
+	private bool thatsit;
+	private Vector2 pos;
+
 	public override void _PhysicsProcess(double delta)
 	{
+		if(thatsit) return;
+
 		// Gradually reduce velocity over time
 		velocity = velocity.Lerp(Vector2.Zero, 0.76f * (float)delta); // Damping factor
 
@@ -25,6 +30,13 @@ public partial class arrow : CharacterBody2D
 		// Update velocity and move the arrow
 		Velocity = velocity;
 		MoveAndSlide();
+
+		
+		if(Position.Y >= pos.Y)
+		{
+			GetNode<Area2D>("Area2D").QueueFree();
+			thatsit = true;
+		}
 	}
 
 	public void Shoot(float power)
@@ -33,22 +45,21 @@ public partial class arrow : CharacterBody2D
 		float angle = Rotation; // Arrow's rotation in radians
 		velocity = new Vector2(Cos(angle), Sin(angle)) * shootPower * 250;
 
+		pos = Position + new Vector2(0, 16);
+
 		Area2D area = GetNode<Area2D>("Area2D");
 		area.BodyEntered += HitBody;
 	}
 
-	public void Hit() // headshot
-	{
-		GD.Print("hit head with arrow (real)");
-	}
-
 	public void HitBody(Node body) // Updated method signature
 	{
+		GD.Print($"Hit {body.Name} with Arrow");
 		if(body is swordman Sword)
 		{
 			if(body.Name == "HeadCollision") Sword.headshot();
 			else Sword.damage(false);
-			GD.Print($"Hit {body.Name} with Arrow");
+
+			QueueFree();
 		}
 	}
 }
