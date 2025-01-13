@@ -38,12 +38,12 @@ public partial class BowControl : AnimatedSprite2D
 		{
 			isAiming = true;
 			pressPosition = GetGlobalMousePosition();
-			GD.Print("clicked left mouse");
+			//GD.Print("clicked left mouse");
 		}
 		if (isCharged && Input.IsActionJustReleased("left_mouse")) // Left mouse button by default
 		{
 			AfterShot();
-			GD.Print("released left mouse");
+			//GD.Print("released left mouse");
 		}
 	}
 
@@ -101,7 +101,7 @@ public partial class BowControl : AnimatedSprite2D
 		isCharged = false;
 		isAiming = false;
 		shoot();
-		GD.Print("Power: " + power);
+		//GD.Print("Power: " + power);
 	}
 
 	public void shoot()
@@ -121,7 +121,7 @@ public partial class BowControl : AnimatedSprite2D
 			chargedTimer = 1.5f;
 			isCharged = true;
 		}
-		GD.Print("Animation finished");
+		//GD.Print("Animation finished");
 	}
 
 	private bool IsWithinRotationLimit(float rotation)

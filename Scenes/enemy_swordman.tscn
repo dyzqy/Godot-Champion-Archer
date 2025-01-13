@@ -1,4 +1,4 @@
-[gd_scene load_steps=286 format=3 uid="uid://dbvgmgxt4d442"]
+[gd_scene load_steps=287 format=3 uid="uid://dbvgmgxt4d442"]
 
 [ext_resource type="Script" path="res://Scripts/swordman.cs" id="1_tpl80"]
 [ext_resource type="Texture2D" uid="uid://bvg8cmrt764lb" path="res://sprites/Sword/Sword_Attack/Slash/SwordAttack1-1695193491804_0000.png" id="2_k1601"]
@@ -1178,6 +1178,9 @@ animations = [{
 radius = 14.0
 height = 78.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_o5rds"]
+radius = 12.0
+
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_r4lhf"]
 a = Vector2(0, -22)
 b = Vector2(74, -22)
@@ -1199,6 +1202,15 @@ autoplay = "idle"
 [node name="BodyCollision2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 22)
 shape = SubResource("CapsuleShape2D_hreha")
+debug_color = Color(0.996819, 0.048112, 1.34766e-06, 0.42)
+
+[node name="Head" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="BodyCollision2D2" type="CollisionShape2D" parent="Head"]
+position = Vector2(2, -28)
+shape = SubResource("CircleShape2D_o5rds")
 debug_color = Color(0.996819, 0.048112, 1.34766e-06, 0.42)
 
 [node name="Area2D" type="Area2D" parent="."]
