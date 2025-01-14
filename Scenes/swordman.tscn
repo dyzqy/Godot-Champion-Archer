@@ -1178,9 +1178,8 @@ animations = [{
 radius = 14.0
 height = 78.0
 
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_8ehwg"]
-a = Vector2(0, -22)
-b = Vector2(74, -22)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8jphe"]
+size = Vector2(55, 100)
 
 [node name="Swordman" type="CharacterBody2D"]
 collision_layer = 2
@@ -1204,7 +1203,7 @@ collision_layer = 2
 collision_mask = 4
 
 [node name="BodyCollision2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, 22)
-shape = SubResource("SegmentShape2D_8ehwg")
+position = Vector2(47, 14)
+shape = SubResource("RectangleShape2D_8jphe")
 
 [connection signal="animation_finished" from="Body" to="." method="OnAnimationFinished"]

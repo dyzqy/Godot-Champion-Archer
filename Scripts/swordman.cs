@@ -25,6 +25,8 @@ public partial class swordman : CharacterBody2D
 	[Export] private int type { get; set; } = 2;
 	[Export] public int health { get; set; } = 5;
 
+	private bool finishedDeathAnimation; //omg this is so long lamoaoa
+
 	public override void _Ready()
 	{
 		body = GetNode<AnimatedSprite2D>("Body");
@@ -91,15 +93,7 @@ public partial class swordman : CharacterBody2D
 		}
 		else
 		{
-			if (type >= 1 && type <= RunTypes.Count)
-			{
-				body.Play((string)RunTypes[type - 1]);
-			}
-			else
-			{
-				GD.PrintErr($"Invalid type value: {type}. Must be between 1 and {RunTypes.Count}.");
-				body.Play("walk_slow"); // Fallback animation
-			}
+			body.Play((string)RunTypes[type - 1]);
 		}
 	}
 
