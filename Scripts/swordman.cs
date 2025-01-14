@@ -76,9 +76,13 @@ public partial class swordman : CharacterBody2D
 	{
 		if (isDead)
 		{
-			if (body.Animation == "death_1" && body.Frame >= 28) { body.Frame = 29; }
-			else if (body.Animation == "death_2" && body.Frame >= 18) { body.Frame = 19; }
-			else if (body.Animation == "death_3" && body.Frame >= 21) { body.Frame = 22; }
+			if (body.Animation == "death_1" && finishedDeathAnimation) { body.Stop(); body.Frame = 29; }
+			else if (body.Animation == "death_2" && finishedDeathAnimation) { body.Stop(); body.Frame = 19; }
+			else if (body.Animation == "death_3" && finishedDeathAnimation) { body.Stop(); body.Frame = 22; }
+
+			if (body.Animation == "death_1" && body.Frame >= 28) { finishedDeathAnimation = true; }
+			else if (body.Animation == "death_2" && body.Frame >= 18) { finishedDeathAnimation = true; }
+			else if (body.Animation == "death_3" && body.Frame >= 21) { finishedDeathAnimation = true; }
 			return;
 		}
 
