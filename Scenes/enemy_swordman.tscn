@@ -1189,6 +1189,7 @@ collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_tpl80")
 isEnemy = true
+type = 1
 
 [node name="Body" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -1196,7 +1197,7 @@ scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_vs3vy")
 animation = &"walk_fast"
 autoplay = "idle"
-frame_progress = 0.603959
+frame_progress = 0.224616
 
 [node name="BodyCollision" type="CollisionShape2D" parent="."]
 position = Vector2(1, 23)
