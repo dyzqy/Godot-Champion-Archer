@@ -283,13 +283,6 @@
 [ext_resource type="Texture2D" uid="uid://dlgaw7rj0smw2" path="res://sprites/Sword/Sword_Walk/Slow/SwordWalkSlow-1695193815673_0030.png" id="281_fvb1o"]
 [ext_resource type="Texture2D" uid="uid://x1rgrxaolbuu" path="res://sprites/Sword/Sword_Walk/Slow/SwordWalkSlow-1695193816003_0031.png" id="282_4lsfy"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_o5rds"]
-radius = 12.0
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hreha"]
-radius = 14.0
-height = 78.0
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_vs3vy"]
 animations = [{
 "frames": [{
@@ -1181,9 +1174,16 @@ animations = [{
 "speed": 24.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hreha"]
+radius = 14.0
+height = 78.0
+
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_r4lhf"]
 a = Vector2(0, -22)
 b = Vector2(74, -22)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o5rds"]
+radius = 12.0
 
 [node name="EnemySwordman" type="CharacterBody2D"]
 scale = Vector2(-1, 1)
@@ -1192,22 +1192,17 @@ collision_mask = 2
 script = ExtResource("1_tpl80")
 isEnemy = true
 
-[node name="HeadCollision" type="CollisionShape2D" parent="."]
-position = Vector2(2, -28)
-shape = SubResource("CircleShape2D_o5rds")
-debug_color = Color(0.996819, 0.048112, 1.34766e-06, 0.42)
-
-[node name="BodyCollision" type="CollisionShape2D" parent="."]
-position = Vector2(0, 22)
-shape = SubResource("CapsuleShape2D_hreha")
-debug_color = Color(0.996819, 0.048112, 1.34766e-06, 0.42)
-
 [node name="Body" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_vs3vy")
 animation = &"death_1"
 autoplay = "idle"
+
+[node name="BodyCollision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 22)
+shape = SubResource("CapsuleShape2D_hreha")
+debug_color = Color(0.996819, 0.048112, 1.34766e-06, 0.42)
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 2
@@ -1216,5 +1211,14 @@ collision_mask = 2
 [node name="BodyCollision2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, 22)
 shape = SubResource("SegmentShape2D_r4lhf")
+
+[node name="HeadArea2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 8
+
+[node name="HeadCollision" type="CollisionShape2D" parent="HeadArea2D"]
+position = Vector2(2, -28)
+shape = SubResource("CircleShape2D_o5rds")
+debug_color = Color(0.996819, 0.048112, 1.34766e-06, 0.42)
 
 [connection signal="animation_finished" from="Body" to="." method="OnAnimationFinished"]

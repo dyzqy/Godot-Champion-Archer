@@ -35,6 +35,7 @@ public partial class arrow : CharacterBody2D
 		if(Position.Y >= pos.Y)
 		{
 			GetNode<Area2D>("Area2D").QueueFree();
+			GetNode<CollisionShape2D>("CollisionShape2D").QueueFree();
 			thatsit = true;
 		}
 	}
@@ -56,10 +57,14 @@ public partial class arrow : CharacterBody2D
 		GD.Print($"Hit {body.Name} with Arrow");
 		if(body is swordman Sword)
 		{
-			if(body.Name == "HeadCollision") Sword.headshot();
-			else Sword.damage(false);
-
+			Sword.damage(false);
 			QueueFree();
 		}
+	}
+	
+	public void HitHead()
+	{
+		GD.Print($"Hit headshot(RAAAAAAAAAAAAAH)");
+		QueueFree();
 	}
 }
