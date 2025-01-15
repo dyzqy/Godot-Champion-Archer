@@ -7,7 +7,7 @@ public partial class EnemySpawner : Node
 	[Export] public PackedScene EnemyScene { get; set; }
 	[Export] public int MaxEnemies { get; set; } = 10;
 	[Export] public float SpawnInterval { get; set; } = 2.0f;
-	[Export] public Node2D[] SpawnPoints { get; set; } = {};
+	[Export] public Node2D[] SpawnPoints { get; set; }
 
 	private List<Node2D> spawnedEnemies = new List<Node2D>();
 	private Timer spawnTimer;
@@ -27,7 +27,7 @@ public partial class EnemySpawner : Node
 		if (spawnedEnemies.Count >= MaxEnemies)
 			return;
 
-		Vector2 spawnPoint = SpawnPoints[GD.Randi() % SpawnPoints.Length].Position;
+		Vector2 spawnPoint = SpawnPoints[GD.Randi() % Mathf.Max(1, SpawnPoints.Length)].Position;
 
 		if (EnemyScene != null)
 		{
