@@ -10,6 +10,7 @@ public partial class arrow : CharacterBody2D
 
 	private bool thatsit;
 	private Vector2 pos;
+	public bool hit;
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -57,13 +58,16 @@ public partial class arrow : CharacterBody2D
 		GD.Print($"Hit {body.Name} with Arrow");
 		if(body is swordman Sword)
 		{
+			if(hit) return;
 			Sword.damage(false);
+			hit = true;
 			QueueFree();
 		}
 	}
 	
 	public void HitHead()
 	{
+		hit = true;
 		GD.Print($"Hit headshot(RAAAAAAAAAAAAAH)");
 		QueueFree();
 	}

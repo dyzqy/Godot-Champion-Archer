@@ -147,7 +147,10 @@ public partial class swordman : CharacterBody2D
 			trigger.QueueFree();
 		}
 		
-		if(node is arrow Arrow) Arrow.HitHead();
+		if(node is arrow Arrow) 
+		{ 
+			if(!Arrow.hit) Arrow.HitHead(); 
+		}
 
 		GetNode<Area2D>("HeadArea2D").QueueFree();
 		GetNode<CollisionShape2D>("BodyCollision").QueueFree();
