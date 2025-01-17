@@ -38,11 +38,11 @@ public partial class SwordmanSpawner : Node
 
 		if (EnemyScene != null)
 		{
-			Node2D enemyInstance = (Node2D)EnemyScene.Instantiate();
+			swordman enemyInstance = (swordman)EnemyScene.Instantiate();
 			enemyInstance.Position = spawnPoint;
 
 			GetParent().AddChild(enemyInstance);
-			if(enemyInstance is swordman Sword) spawnedEnemies.Add(Sword);
+			spawnedEnemies.Add(enemyInstance);
 
 			enemyInstance.Connect("tree_exited", new Callable(this, nameof(OnEnemyRemoved)));
 		}

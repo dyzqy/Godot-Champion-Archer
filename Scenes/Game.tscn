@@ -8,8 +8,7 @@
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="grass" parent="." node_paths=PackedStringArray("SpawnPoints") instance=ExtResource("1_1tesv")]
-SpawnPoints = []
+[node name="grass" parent="." instance=ExtResource("1_1tesv")]
 
 [node name="Archer" parent="." instance=ExtResource("2_hymnu")]
 z_index = 1

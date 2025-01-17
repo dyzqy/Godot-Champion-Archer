@@ -1,4 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cmrt4ablxvtf2"]
+[gd_scene load_steps=8 format=3 uid="uid://cmrt4ablxvtf2"]
+
+[ext_resource type="Script" path="res://Scripts/SwordmanSpawner.cs" id="1_wrf8h"]
+[ext_resource type="PackedScene" uid="uid://dbvgmgxt4d442" path="res://Scenes/enemy_swordman.tscn" id="2_qpoy5"]
+[ext_resource type="PackedScene" uid="uid://c0kjha6d1o4cx" path="res://Scenes/swordman.tscn" id="3_xdkwx"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_13s2e"]
 normal = Vector2(0, 1)
@@ -15,7 +19,12 @@ distance = -575.0
 normal = Vector2(-1, 0)
 distance = -575.0
 
-[node name="Root" type="Node"]
+[node name="Root" type="Node" node_paths=PackedStringArray("EnemySpawnPoints", "SpawnPoints")]
+script = ExtResource("1_wrf8h")
+EnemyScene = ExtResource("2_qpoy5")
+EnemySpawnPoints = [NodePath("Enemy Spawn Area/spot1"), NodePath("Enemy Spawn Area/spot2"), NodePath("Enemy Spawn Area/spot3"), NodePath("Enemy Spawn Area/spot4")]
+SwordScene = ExtResource("3_xdkwx")
+SpawnPoints = [NodePath("Team Spawn Area/spot1"), NodePath("Team Spawn Area/spot2"), NodePath("Team Spawn Area/spot3"), NodePath("Team Spawn Area/spot4")]
 
 [node name="Upper Border" type="StaticBody2D" parent="."]
 collision_layer = 7
@@ -42,20 +51,6 @@ shape = SubResource("WorldBoundaryShape2D_5oo2j")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Right Area"]
 shape = SubResource("WorldBoundaryShape2D_o4u1k")
 
-[node name="Team Spawn Area" type="Node" parent="."]
-
-[node name="spot1" type="Node2D" parent="Team Spawn Area"]
-position = Vector2(-640, 86)
-
-[node name="spot2" type="Node2D" parent="Team Spawn Area"]
-position = Vector2(-610, 148)
-
-[node name="spot3" type="Node2D" parent="Team Spawn Area"]
-position = Vector2(-642, 206)
-
-[node name="spot4" type="Node2D" parent="Team Spawn Area"]
-position = Vector2(-610, 266)
-
 [node name="Enemy Spawn Area" type="Node" parent="."]
 
 [node name="spot1" type="Node2D" parent="Enemy Spawn Area"]
@@ -69,3 +64,17 @@ position = Vector2(616, 194)
 
 [node name="spot4" type="Node2D" parent="Enemy Spawn Area"]
 position = Vector2(656, 230)
+
+[node name="Team Spawn Area" type="Node" parent="."]
+
+[node name="spot1" type="Node2D" parent="Team Spawn Area"]
+position = Vector2(-640, 86)
+
+[node name="spot2" type="Node2D" parent="Team Spawn Area"]
+position = Vector2(-610, 148)
+
+[node name="spot3" type="Node2D" parent="Team Spawn Area"]
+position = Vector2(-642, 206)
+
+[node name="spot4" type="Node2D" parent="Team Spawn Area"]
+position = Vector2(-610, 266)
