@@ -2,12 +2,19 @@ using Godot;
 using System.Collections.Generic;
 using Godot.Collections;
 
-public partial class EnemySpawner : Node
+public partial class SwordmanSpawner : Node
 {
+	//========================= Enemies ===========================
 	[Export] public PackedScene EnemyScene { get; set; }
 	[Export] public int MaxEnemies { get; set; } = 10;
+	[Export] public float EnemySpawnInterval { get; set; } = 2.0f;
+	[Export] public Node2D[] EnemySpawnPoints { get; set; }
+	//========================= Swords ===========================
+	[Export] public PackedScene SwordScene { get; set; }
+	[Export] public int MaxSwords { get; set; } = 10;
 	[Export] public float SpawnInterval { get; set; } = 2.0f;
 	[Export] public Node2D[] SpawnPoints { get; set; }
+	
 
 	private List<swordman> spawnedEnemies = new List<swordman>();
 	private Timer spawnTimer;

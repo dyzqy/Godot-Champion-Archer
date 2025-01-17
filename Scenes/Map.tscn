@@ -1,7 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cmrt4ablxvtf2"]
-
-[ext_resource type="Script" path="res://Scripts/EnemySpawner.cs" id="1_rn37m"]
-[ext_resource type="PackedScene" uid="uid://dbvgmgxt4d442" path="res://Scenes/enemy_swordman.tscn" id="2_phwec"]
+[gd_scene load_steps=5 format=3 uid="uid://cmrt4ablxvtf2"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_13s2e"]
 normal = Vector2(0, 1)
@@ -18,12 +15,7 @@ distance = -575.0
 normal = Vector2(-1, 0)
 distance = -575.0
 
-[node name="Root" type="Node" node_paths=PackedStringArray("SpawnPoints")]
-script = ExtResource("1_rn37m")
-EnemyScene = ExtResource("2_phwec")
-MaxEnemies = 50
-SpawnInterval = 5.0
-SpawnPoints = [NodePath("Enemy Spawn Area/spot1"), NodePath("Enemy Spawn Area/spot2"), NodePath("Enemy Spawn Area/spot3"), NodePath("Enemy Spawn Area/spot4")]
+[node name="Root" type="Node"]
 
 [node name="Upper Border" type="StaticBody2D" parent="."]
 collision_layer = 7
