@@ -23,7 +23,7 @@ public partial class SwordmanSpawner : Node
 	{
 		spawnTimer = new Timer();
 		AddChild(spawnTimer);
-		spawnTimer.WaitTime = SpawnInterval;
+		spawnTimer.WaitTime = EnemySpawnInterval;
 		spawnTimer.OneShot = false;
 		spawnTimer.Timeout += SpawnEnemy;
 		spawnTimer.Start();
@@ -34,7 +34,7 @@ public partial class SwordmanSpawner : Node
 		if (spawnedEnemies.Count >= MaxEnemies)
 			return;
 
-		Vector2 spawnPoint = SpawnPoints[GD.Randi() % SpawnPoints.Length].Position;
+		Vector2 spawnPoint = EnemySpawnPoints[GD.Randi() % EnemySpawnPoints.Length].Position;
 
 		if (EnemyScene != null)
 		{
