@@ -17,15 +17,23 @@ public partial class SwordmanSpawner : Node
 	
 
 	private List<swordman> spawnedEnemies = new List<swordman>();
-	private Timer spawnTimer;
+	private List<swordman> spawnedSwords = new List<swordman>();
+	private Timer enemySpawnTimer, spawnTimer;
 
 	public override void _Ready()
 	{
+		enemySpawnTimer = new Timer();
+		AddChild(enemySpawnTimer);
+		enemySpawnTimer.WaitTime = EnemySpawnInterval;
+		enemySpawnTimer.OneShot = false;
+		enemySpawnTimer.Timeout += SpawnEnemy;
+		enemySpawnTimer.Start();
+
 		spawnTimer = new Timer();
 		AddChild(spawnTimer);
-		spawnTimer.WaitTime = EnemySpawnInterval;
+		spawnTimer.WaitTime = SpawnInterval;
 		spawnTimer.OneShot = false;
-		spawnTimer.Timeout += SpawnEnemy;
+		spawnTimer.Timeout += SpawnSword;
 		spawnTimer.Start();
 	}
 
@@ -45,6 +53,25 @@ public partial class SwordmanSpawner : Node
 			spawnedEnemies.Add(enemyInstance);
 
 			enemyInstance.Connect("tree_exited", new Callable(this, nameof(OnEnemyRemoved)));
+		}
+	}
+
+	private void SpawnSword()
+	{
+		if (spawnedSwords.Count >= MaxSwords)
+			return;
+
+		Vector2 spawnPoint = SpawnPoints[GD.Randi() % SpawnPoints.Length].Position;
+
+		if (EnemyScene != null)
+		{
+			swordman swordInstance = (swordman)SwordScene.Instantiate();
+			swordInstance.Position = spawnPoint;
+
+			GetParent().AddChild(swordInstance);
+			spawnedEnemies.Add(swordInstance);
+
+			swordInstance.Connect("tree_exited", new Callable(this, nameof(OnEnemyRemoved)));
 		}
 	}
 
