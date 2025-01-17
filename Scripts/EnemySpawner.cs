@@ -9,7 +9,7 @@ public partial class EnemySpawner : Node
 	[Export] public float SpawnInterval { get; set; } = 2.0f;
 	[Export] public Node2D[] SpawnPoints { get; set; }
 
-	private List<Node2D> spawnedEnemies = new List<Node2D>();
+	private List<swordman> spawnedEnemies = new List<swordman>();
 	private Timer spawnTimer;
 
 	public override void _Ready()
@@ -27,7 +27,7 @@ public partial class EnemySpawner : Node
 		if (spawnedEnemies.Count >= MaxEnemies)
 			return;
 
-		Vector2 spawnPoint = SpawnPoints[GD.Randi() % Mathf.Max(1, SpawnPoints.Length)].Position;
+		Vector2 spawnPoint = SpawnPoints[GD.Randi() % SpawnPoints.Length].Position;
 
 		if (EnemyScene != null)
 		{
@@ -35,7 +35,7 @@ public partial class EnemySpawner : Node
 			enemyInstance.Position = spawnPoint;
 
 			GetParent().AddChild(enemyInstance);
-			spawnedEnemies.Add(enemyInstance);
+			if(enemyInstance is swordman Sword) spawnedEnemies.Add(Sword);
 
 			enemyInstance.Connect("tree_exited", new Callable(this, nameof(OnEnemyRemoved)));
 		}
@@ -43,9 +43,6 @@ public partial class EnemySpawner : Node
 
 	private void OnEnemyRemoved(Node enemy)
 	{
-		if (enemy is Node2D enemyNode && spawnedEnemies.Contains(enemyNode))
-		{
-			spawnedEnemies.Remove(enemyNode);
-		}
+		
 	}
 }

@@ -23,7 +23,7 @@ script = ExtResource("1_rn37m")
 EnemyScene = ExtResource("2_phwec")
 MaxEnemies = 50
 SpawnInterval = 5.0
-SpawnPoints = [NodePath("Enemy Spawn Area/spot1"), NodePath("Enemy Spawn Area/spot2"), NodePath("Enemy Spawn Area/spot3"), NodePath("Enemy Spawn Area/spot4"), null]
+SpawnPoints = [NodePath("Enemy Spawn Area/spot1"), NodePath("Enemy Spawn Area/spot2"), NodePath("Enemy Spawn Area/spot3"), NodePath("Enemy Spawn Area/spot4")]
 
 [node name="Upper Border" type="StaticBody2D" parent="."]
 collision_layer = 7
