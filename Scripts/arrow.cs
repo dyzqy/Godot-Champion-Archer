@@ -67,6 +67,7 @@ public partial class arrow : CharacterBody2D
 	
 	public void HitHead()
 	{
+		if(hit) return;
 		hit = true;
 		GD.Print($"Hit headshot(RAAAAAAAAAAAAAH)");
 		QueueFree();
